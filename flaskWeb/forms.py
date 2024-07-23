@@ -49,6 +49,6 @@ class UpdateAccountForm(FlaskForm):
                 raise ValidationError('That email is taken. Choose a different hater email')
             
 class PostForm(FlaskForm):
-    title = StringField('Title', validators=[DataRequired(), Length(max=45)])
+    title = StringField('Title', validators=[DataRequired(), Length(max=60)])
     content = TextAreaField('Content', validators=[DataRequired()], render_kw={"cols": 15})
     submit = SubmitField('Post')
