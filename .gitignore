@@ -3,6 +3,7 @@
 __pycache__
 __pycache__/
 instance*
+flaskWeb/site.db
 flaskWeb/static/profile_pics/
 *.pyc
 *.elc
