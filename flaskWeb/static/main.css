@@ -34,7 +34,6 @@ body {
   
   .article-title {
     color: #444444;
-    word-break: break-all;
   }
   
   a.article-title:hover {
@@ -44,7 +43,6 @@ body {
   
   .article-content {
     white-space: pre-line;
-    word-break: break-all;
   }
   
   .article-img {
