@@ -8,3 +8,4 @@ flaskWeb/static/profile_pics/
 *.pyc
 *.elc
 *__pycache__*
+/tests

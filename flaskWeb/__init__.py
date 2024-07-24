@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
-from flaskWeb.config import Config
+from flaskWeb.config import Config, ConfigTest
 
 
 db = SQLAlchemy()
@@ -13,6 +13,9 @@ login_manager.login_view = 'users.login'
 login_manager.login_message_category = 'info'
 
 mail = Mail()
+
+#SET config_class=ConfigTest for testing (using pytest)
+#SET config_class=Config for production
 
 def create_app(config_class=Config):
     app = Flask(__name__)
