@@ -1,33 +1,33 @@
-import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
+from flaskWeb.config import Config
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = '03b5f57049b9881b93cd9ef9b6df7bb0'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-db = SQLAlchemy(app)
-bcrypt = Bcrypt(app)
-login_manager = LoginManager(app)
-login_manager.login_view = 'login'
+
+db = SQLAlchemy()
+bcrypt = Bcrypt()
+login_manager = LoginManager()
+login_manager.login_view = 'users.login'
 login_manager.login_message_category = 'info'
 
+mail = Mail()
 
-app.config.update(
-MAIL_SERVER='smtp.gmail.com',
-MAIL_PORT='587',
-TESTING=False,
-MAIL_SUPPRESS_SEND = False,
-MAIL_DEBUG = True,
-MAIL_USE_TLS=True,
-# YOU HAVE TO SET YOU ENVIRONMENT VARIABLE TO BE YOUR EMAIL
-MAIL_USERNAME=os.environ['EMAIL_USER'],
-# YOU NEED TO HAVE 2 STEP-AUTH ON GOOGLE ACCOUNR, AND GET AN APP PASSSWORD AND PUT IT IN THE ENVIRONMENT VARIABLE
-MAIL_PASSWORD=os.environ['EMAIL_PASS']
-)
+def create_app(config_class=Config):
+    app = Flask(__name__)
+    app.config.from_object(Config)
 
-mail = Mail(app)
+    db.init_app(app) 
+    bcrypt.init_app(app) 
+    login_manager.init_app(app) 
+    mail.init_app(app) 
 
-from flaskWeb import routes
+    from flaskWeb.users.routes import users
+    from flaskWeb.posts.routes import posts
+    from flaskWeb.main.routes import main
+    app.register_blueprint(users)
+    app.register_blueprint(posts)
+    app.register_blueprint(main)
+
+    return app
