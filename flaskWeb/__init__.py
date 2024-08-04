@@ -6,7 +6,6 @@ from flask_mail import Mail
 from flaskWeb.config import Config, ConfigTest
 
 
-
 db = SQLAlchemy()
 bcrypt = Bcrypt()
 login_manager = LoginManager()
